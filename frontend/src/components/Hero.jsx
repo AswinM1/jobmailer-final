@@ -1,11 +1,37 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from './ThemeContext'; // Make sure to import the ThemeContext
+import { ThemeContext } from './ThemeContext';
 import { Link } from 'react-router-dom';
 import { useLogin } from './LoginContext';
+import { motion } from "framer-motion";
 
 function Hero() {
-  const { theme } = useContext(ThemeContext); // Get the theme from context
-  const { isLoggedIn } = useLogin(); // Get login status from context
+  const { theme } = useContext(ThemeContext);
+  const { isLoggedIn } = useLogin();
+
+  const parentVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+        duration:2
+      },
+    },
+  };
+
+  const childVariants = {
+    hidden: {
+      opacity: 0,
+      y:0
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      duration:2
+    },
+  };
 
   return (
     <div
@@ -15,79 +41,100 @@ function Hero() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        color: theme === 'light' ? 'black' : 'white', // Text color changes based on theme
+        color: 'white',
         textAlign: 'center',
         padding: '20px',
-        backgroundColor: theme === 'light' ? '#f0f0f0' : '#121212', // Background color changes based on theme
+        background: 'linear-gradient(to bottom,#000 1%,#4521A1 65%,#A46EDB 90%)',
       }}
     >
-      <div style={{ maxWidth: '900px' }}>
-        <h1
-          style={{
-            fontSize: '80px',
-            marginBottom: '20px',
-            fontWeight: 'bold',
-            fontFamily: 'sans-serif',
-            wordSpacing: '1px',
-            lineHeight: '80px',
-            backgroundClip: theme === 'light' ? 'white' : 'black',
-          }}
+      <motion.div
+        variants={parentVariants}
+        initial="hidden"
+        animate="visible"
+        style={{
+          maxWidth: '900px',
+          width: '100%',
+          padding: '10px',
+        }}
+      >
+        <motion.h1
+          variants={childVariants}
+          className="text-[72px] font-sans font-semibold"
         >
-          Perfect Emails in <span style={{ color: '#0077ff' }}>Seconds.</span>
-        </h1>
-        <p
+          Perfect Email in Seconds
+        </motion.h1>
+        <motion.p
+          variants={childVariants}
           style={{
             fontSize: '1.2rem',
-            marginBottom: '30px',
-            color: theme === 'light' ? 'gray' : 'lightgray', // Text color changes based on theme
-            opacity: '90%',
+            marginTop: '20px',
+            color: '#ccc',
+            lineHeight: '1.6',
+            textAlign: 'center',
           }}
         >
-          Generate HR friendly emails which go straight into the inbox, not in spam.
-        </p>
-
-        {/* Conditional rendering based on login status */}
-        {isLoggedIn ? (
-          <Link to="/home">
-            <button
-              style={{
-                padding: '10px 20px',
-                fontSize: '1rem',
-                color: '#fff',
-                backgroundColor: '#0077ff',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                transition: 'background-color 0.3s',
-              }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = '#004fc4')}
-              onMouseOut={(e) => (e.target.style.backgroundColor = '#0077ff')}
-            >
-              Get Started
-            </button>
-          </Link>
-        ) : (
-          <Link to="/login">
-            <button
-              style={{
-                padding: '10px 20px',
-                fontSize: '1rem',
-                color: '#fff',
-                backgroundColor: '#0077ff',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                transition: 'background-color 0.3s',
-              }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = '#004fc4')}
-              onMouseOut={(e) => (e.target.style.backgroundColor = '#0077ff')}
-            >
-              Get Started
-            </button>
-         </Link> 
-         
-        )}
-      </div>
+          Our platform helps you craft professional emails effortlessly. Save
+          time and boost productivity with our easy-to-use tools. With the
+          power of AI, easily craft HR-friendly emails in seconds.
+        </motion.p>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '20px',
+            marginTop: '30px',
+          }}
+        >
+          <motion.div variants={childVariants}>
+            <Link to="/home">
+              <button
+                style={{
+                  padding: '10px 20px',
+                  fontSize: '1rem',
+                  color: '#fff',
+                  backgroundColor: 'black',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.3s',
+                }}
+                onMouseOver={(e) =>
+                  (e.target.style.backgroundColor = '#121212')
+                }
+                onMouseOut={(e) =>
+                  (e.target.style.backgroundColor = 'black')
+                }
+              >
+                Get Started
+              </button>
+            </Link>
+          </motion.div>
+          <motion.div variants={childVariants}>
+            <Link to="/learn-more">
+              <button
+                style={{
+                  padding: '10px 20px',
+                  fontSize: '1rem',
+                  color: '#fff',
+                  backgroundColor: 'black',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.3s',
+                }}
+                onMouseOver={(e) =>
+                  (e.target.style.backgroundColor = '#121212')
+                }
+                onMouseOut={(e) =>
+                  (e.target.style.backgroundColor = 'black')
+                }
+              >
+                Learn More
+              </button>
+            </Link>
+          </motion.div>
+        </div>
+      </motion.div>
     </div>
   );
 }

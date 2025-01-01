@@ -1,5 +1,10 @@
 body
 {
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    
+    
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from './LoginContext';
 import { ThemeContext } from './ThemeContext';
+import { motion } from 'framer-motion';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -50,18 +51,26 @@ function SignUp() {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
-        backgroundColor: theme === 'light' ? '#f4f7fc' : '#121212',
+        width: '100vw',
+        background: 'linear-gradient(to bottom,#000 20%,#4521A1 65%)',
         color: theme === 'light' ? '#000' : '#fff',
         fontFamily: 'Arial, sans-serif',
       }}
     >
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
         style={{
           padding: '40px',
-          backgroundColor: theme === 'light' ? '#fff' : '#2a2a2a',
+          backgroundColor: 'black',
           borderRadius: '10px',
-          boxShadow: theme === 'light' ? '0 4px 8px rgba(0, 0, 0, 0.1)' : '0 4px 8px rgba(0, 0, 0, 0.4)',
+          boxShadow:
+            theme === 'light'
+              ? '0 4px 8px rgba(0, 0, 0, 0.1)'
+              : '0 4px 8px rgba(0, 0, 0, 0.4)',
           width: '100%',
+          height: 'auto',
           maxWidth: '400px',
           transition: 'all 0.3s ease-in-out',
         }}
@@ -71,14 +80,19 @@ function SignUp() {
             fontSize: '2rem',
             fontWeight: 'bold',
             marginBottom: '20px',
-            color: theme === 'light' ? '#333' : '#fff',
+            color: 'white',
           }}
         >
-          Sign Up
+          Create your account
         </h2>
 
         <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: '20px' }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            style={{ marginBottom: '20px' }}
+          >
             <label
               htmlFor="email"
               style={{
@@ -86,10 +100,10 @@ function SignUp() {
                 fontWeight: '600',
                 marginBottom: '8px',
                 display: 'block',
-                color: theme === 'light' ? '#333' : '#bbb',
+                color: 'white',
               }}
             >
-              Email:
+              Email
             </label>
             <input
               type="email"
@@ -102,47 +116,21 @@ function SignUp() {
                 padding: '10px',
                 fontSize: '1rem',
                 borderRadius: '8px',
-                border: theme === 'light' ? '1px solid #ddd' : '1px solid #555',
-                backgroundColor: theme === 'light' ? '#fff' : '#333',
-                color: theme === 'light' ? '#333' : '#fff',
+                border: '1px solid #555',
+                backgroundColor: 'black',
+                color: 'white',
                 transition: 'all 0.3s',
               }}
             />
-          </div>
+          </motion.div>
 
-          <div style={{ marginBottom: '20px' }}>
-            <label
-              htmlFor="username"
-              style={{
-                fontSize: '1rem',
-                fontWeight: '600',
-                marginBottom: '8px',
-                display: 'block',
-                color: theme === 'light' ? '#333' : '#bbb',
-              }}
-            >
-              Username:
-            </label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your username"
-              style={{
-                width: '100%',
-                padding: '10px',
-                fontSize: '1rem',
-                borderRadius: '8px',
-                border: theme === 'light' ? '1px solid #ddd' : '1px solid #555',
-                backgroundColor: theme === 'light' ? '#fff' : '#333',
-                color: theme === 'light' ? '#333' : '#fff',
-                transition: 'all 0.3s',
-              }}
-            />
-          </div>
-
-          <div style={{ marginBottom: '20px' }}>
+         
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+            style={{ marginBottom: '20px' }}
+          >
             <label
               htmlFor="password"
               style={{
@@ -150,10 +138,10 @@ function SignUp() {
                 fontWeight: '600',
                 marginBottom: '8px',
                 display: 'block',
-                color: theme === 'light' ? '#333' : '#bbb',
+                color: 'white',
               }}
             >
-              Password:
+              Password
             </label>
             <input
               type="password"
@@ -166,15 +154,20 @@ function SignUp() {
                 padding: '10px',
                 fontSize: '1rem',
                 borderRadius: '8px',
-                border: theme === 'light' ? '1px solid #ddd' : '1px solid #555',
-                backgroundColor: theme === 'light' ? '#fff' : '#333',
-                color: theme === 'light' ? '#333' : '#fff',
+                border: '1px solid #555',
+                backgroundColor: 'black',
+                color: 'white',
                 transition: 'all 0.3s',
               }}
             />
-          </div>
+          </motion.div>
 
-          <div style={{ marginBottom: '20px' }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9 }}
+            style={{ marginBottom: '20px' }}
+          >
             <label
               htmlFor="confirmPassword"
               style={{
@@ -182,10 +175,10 @@ function SignUp() {
                 fontWeight: '600',
                 marginBottom: '8px',
                 display: 'block',
-                color: theme === 'light' ? '#333' : '#bbb',
+                color: 'white',
               }}
             >
-              Confirm Password:
+              Confirm Password
             </label>
             <input
               type="password"
@@ -198,13 +191,13 @@ function SignUp() {
                 padding: '10px',
                 fontSize: '1rem',
                 borderRadius: '8px',
-                border: theme === 'light' ? '1px solid #ddd' : '1px solid #555',
-                backgroundColor: theme === 'light' ? '#fff' : '#333',
-                color: theme === 'light' ? '#333' : '#fff',
+                border: '1px solid #555',
+                backgroundColor: 'black',
+                color: 'white',
                 transition: 'all 0.3s',
               }}
             />
-          </div>
+          </motion.div>
 
           {signupError && (
             <p
@@ -219,27 +212,29 @@ function SignUp() {
             </p>
           )}
 
-          <button
+          <motion.button
             type="submit"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             style={{
               width: '100%',
               padding: '12px',
               fontSize: '1rem',
               fontWeight: '600',
-              backgroundColor: theme === 'light' ? '#4CAF50' : '#2196F3',
-              color: '#fff',
+              backgroundColor: 'white',
+              color: 'black',
               border: 'none',
               borderRadius: '8px',
               cursor: 'pointer',
-              transition: 'background-color 0.3s ease-in-out',
             }}
-            onMouseOver={(e) => (e.target.style.backgroundColor = theme === 'light' ? '#45a049' : '#1976D2')}
-            onMouseOut={(e) => (e.target.style.backgroundColor = theme === 'light' ? '#4CAF50' : '#2196F3')}
           >
             Sign Up
-          </button>
+          </motion.button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }

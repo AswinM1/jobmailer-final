@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext } from 'react';
 
 // Create the context
 const LoginContext = createContext();
-
+  
 // Create a custom hook to use the context
 export const useLogin = () => {
   return useContext(LoginContext);

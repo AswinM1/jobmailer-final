@@ -7,6 +7,8 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ThemeProvider  from './components/ThemeContext';
 import SignUp from './components/Signup';
+import Contact from './components/Contact';
+// import Features from './components/Features';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/" element={<Hero />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/contact" element={<Contact />} />
+              {/* <Route path="/features" element={<Features />} /> */}
             </Routes>
          
         </ThemeProvider>

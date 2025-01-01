@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import './Home.css';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ThemeContext } from './ThemeContext';
+import axios from 'axios';
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +12,6 @@ const Home = () => {
     customMessage: '',
     ResumeLink: '',
   });
-  const { theme } = useContext(ThemeContext); // Use theme from context
 
   const [generatedEmail, setGeneratedEmail] = useState('');
   const [count, setCount] = useState(() => {
@@ -23,12 +20,10 @@ const Home = () => {
   });
   const nav = useNavigate();
 
-  // Check if the user is logged in by looking at localStorage
   const isLoggedIn = localStorage.getItem('loginvalue') === 'true';
 
-  // Sync count to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('emailCount', count);
+    localStorage.setItem('emailCount', count.toString());
   }, [count]);
 
   const handleChange = (e) => {
@@ -38,19 +33,18 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // If not logged in, prevent further email generation and navigate to login
     try {
       const response = await axios.post('http://localhost:3000/main', {
         input: formData,
       });
 
       const emailText = response.data.reply?.choices?.[0]?.message?.content || 'No email generated';
-      setGeneratedEmail(emailText); // Set the email text to display
+      setGeneratedEmail(emailText);
     } catch (error) {
       console.error('Error generating email:', error);
+
     }
 
-    // Increment count and check if it's greater than 1 before navigating
     const newCount = count + 1;
     setCount(newCount);
 
@@ -59,9 +53,6 @@ const Home = () => {
       return;
     }
   };
-  useEffect(() => {
-    document.body.className = theme; // Apply 'light' or 'dark' class to body
-  }, [theme])
 
   const sendEmail = () => {
     const subject = encodeURIComponent('Subject of the Email');
@@ -70,85 +61,127 @@ const Home = () => {
 
     window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
   };
-  
 
   return (
-    <div className={`container ${theme === 'light' ? 'light' : 'dark'}`}> {/* Correct dynamic class */}
-      <form className={`form-${theme}`} onSubmit={handleSubmit}> {/* Correct dynamic class */}
-        <input
-          type="text"
-          name="senderName"
-          placeholder="Your Name"
-          onChange={handleChange}
-          required
-          className="input"
-        />
-        <input
-          type="text"
-          name="senderJobTitle"
-          placeholder="Your Job Title"
-          onChange={handleChange}
-          required
-          className="input"
-        />
-        <input
-          type="text"
-          name="recipientName"
-          placeholder="Recipient's Name"
-          onChange={handleChange}
-          required
-          className="input"
-        />
-        <input
-          type="text"
-          name="recipientCompany"
-          placeholder="Recipient's Company"
-          onChange={handleChange}
-          required
-          className="input"
-        />
-        <input
-          type="url"
-          name="ResumeLink"
-          placeholder="Resume URL"
-          onChange={handleChange}
-          required
-          className="input"
-        />
-        <select name="emailPurpose" onChange={handleChange} required className="select">
-          <option value="">Select Purpose</option>
-          <option value="job_inquiry">Job Inquiry</option>
-          <option value="follow_up">Follow-Up</option>
-          <option value="offer">Job Offer</option>
-        </select>
-        <textarea
-          name="customMessage"
-          placeholder="Custom Message (optional)"
-          onChange={handleChange}
-          className="textarea"
-        />
-        <textarea
-          name="skills"
-          placeholder="Skills"
-          onChange={handleChange}
-          className="textarea"
-        />
-        <button type="submit" className="button">
-          Generate Email
-        </button>
-      </form>
+    <div className="min-h-screen  text-white p-4 md:p-8"  style={{  background:'linear-gradient(to bottom,#000 20%,#4521A1  65%)'}}>
+      <div className="max-w-4xl mx-auto">
+        <form onSubmit={handleSubmit} className="bg-black  rounded-lg shadow-lg p-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label htmlFor="senderName" className="block text-sm font-medium mb-1">Name</label>
+              <input
+                type="text"
+                id="senderName"
+                name="senderName"
+                placeholder="Your Name"
+                onChange={handleChange}
+                required
+                className="w-full bg-black  border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label htmlFor="senderJobTitle" className="block text-sm font-medium mb-1">Job Title</label>
+              <input
+                type="text"
+                id="senderJobTitle"
+                name="senderJobTitle"
+                placeholder="Your Job Title"
+                onChange={handleChange}
+                required
+                className="w-full bg-black border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label htmlFor="recipientName" className="block text-sm font-medium mb-1">Recipient's Name</label>
+              <input
+                type="text"
+                id="recipientName"
+                name="recipientName"
+                placeholder="Recipient's Name"
+                onChange={handleChange}
+                required
+                className="w-full bg-black border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label htmlFor="recipientCompany" className="block text-sm font-medium mb-1">Company</label>
+              <input
+                type="text"
+                id="recipientCompany"
+                name="recipientCompany"
+                placeholder="Recipient's Company"
+                onChange={handleChange}
+                required
+                className="w-full bg-black  border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+          <div className="mt-6">
+            <label htmlFor="ResumeLink" className="block text-sm font-medium mb-1">Your Resume</label>
+            <input
+              type="url"
+              id="ResumeLink"
+              name="ResumeLink"
+              placeholder="Resume URL"
+              onChange={handleChange}
+              required
+              className="w-full bg-black  border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent"
+            />
+          </div>
+          <div className="mt-6">
+            <label htmlFor="emailPurpose" className="block text-sm font-medium mb-1">Email Purpose</label>
+            <select
+              id="emailPurpose"
+              name="emailPurpose"
+              onChange={handleChange}
+              required
+              className="w-full bg-black  border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent"
+            >
+              <option value="">Select Purpose</option>
+              <option value="job_inquiry">Job Inquiry</option>
+              <option value="follow_up">Follow-Up</option>
+              <option value="offer">Job Offer</option>
+            </select>
+          </div>
+          <div className="mt-6">
+            <label htmlFor="customMessage" className="block text-sm font-medium mb-1">Custom Message (optional)</label>
+            <textarea
+              id="customMessage"
+              name="customMessage"
+              placeholder="Custom Message"
+              onChange={handleChange}
+              className="w-full bg-black border border-gray-600 rounded-md py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent h-32"
+            />
+          </div>
+          <div className="mt-8">
+            <button
+              type="submit"
+              className="w-full bg-white hover:bg-neutral-200 text-black font-semibold py-2 px-1 rounded-md transition duration-300 ease-in-out"
+            >
+              Generate Email
+            </button>
+          </div>
+        </form>
 
-      {generatedEmail && (
-        <div className="result-container">
-          <h3 className="result-title">Generated Email:</h3>
-          <pre className="result-content">{generatedEmail}</pre>
-          <button onClick={sendEmail} className="button">
-            Send Email
-          </button>
+        {generatedEmail && <div className="bg-black  rounded-lg shadow-lg p-6">
+         
+          <pre className=" p-4 rounded-md overflow-x-auto whitespace-pre-wrap font-mono text-sm">
+            {!generatedEmail || "Something went wrong...... "}
+          </pre>
+          {generatedEmail && (
+            <button
+              onClick={sendEmail}
+              className="mt-4 bg-white hover:bg-neutral-200 text-black font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out"
+            >
+              Send Email
+            </button>
+          )}
         </div>
-      )}
+    }
+      </div>
     </div>
   );
 };
 
 export default Home;
+
