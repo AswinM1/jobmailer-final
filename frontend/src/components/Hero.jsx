@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from './ThemeContext';
+
 import { Link } from 'react-router-dom';
-import { useLogin } from './LoginContext';
+
 import { motion } from "framer-motion";
+import { SignedIn, SignedOut,SignInButton } from '@clerk/clerk-react';
 
 function Hero() {
-  const { theme } = useContext(ThemeContext);
-  const { isLoggedIn } = useLogin();
+
+ 
 
   const parentVariants = {
     hidden: {
@@ -86,6 +87,7 @@ function Hero() {
           }}
         >
           <motion.div variants={childVariants}>
+           <SignedIn>
             <Link to="/home">
               <button
                 style={{
@@ -107,7 +109,33 @@ function Hero() {
               >
                 Get Started
               </button>
-            </Link>
+              </Link>
+              </SignedIn>
+           <SignedOut>
+            <SignInButton>
+              <button
+                style={{
+                  padding: '10px 20px',
+                  fontSize: '1rem',
+                  color: '#fff',
+                  backgroundColor: 'black',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.3s',
+                }}
+                onMouseOver={(e) =>
+                  (e.target.style.backgroundColor = '#121212')
+                }
+                onMouseOut={(e) =>
+                  (e.target.style.backgroundColor = 'black')
+                }
+              >
+                Get Started
+              </button>
+              </SignInButton>
+              </SignedOut>
+          
           </motion.div>
           <motion.div variants={childVariants}>
             <Link to="/learn-more">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import bg1 from '../assets/bg.svg';
+import { SignedOut, SignInButton, UserButton, SignedIn } from '@clerk/clerk-react';
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -13,7 +14,7 @@ function Navbar() {
     <nav className="bg-black text-white shadow-lg border-b border-gray-600">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex flex-row">
+          <div className="flex flex-row items-center">
             <Link to="/" className="flex-shrink-0">
               <img src={bg1} className="h-8 w-auto" alt="Logo" />
             </Link>
@@ -32,12 +33,22 @@ function Navbar() {
               >
                 Contact
               </Link>
-              <Link
-                to="/login"
-                className="bg-white text-black hover:bg-neutral-200 px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
-              >
-                Sign In
-              </Link>
+              
+              <SignedOut>
+                <SignInButton>
+                  <div className="bg-white text-black hover:bg-neutral-200 px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
+                    Sign In
+                  </div>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+  <div className="flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
+    <p className="text-white">Hello,user</p>
+    <UserButton />
+  </div>
+</SignedIn>
+
+              
               <Link
                 to="/home"
                 className="bg-gradient-to-r from-purple-700 to-purple-400 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
@@ -46,6 +57,8 @@ function Navbar() {
               </Link>
             </div>
           </div>
+          
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               type="button"
@@ -93,6 +106,7 @@ function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -102,24 +116,22 @@ function Navbar() {
             >
               Home
             </Link>
-            <Link
-              to="/contact"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Contact
-            </Link>
-             <Link
-              to="/login"
-              className="bg-neutral-100 text-black hover:bg-neutral-200 block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Sign In
-            </Link>
-            <Link
-              to="/login"
-              className="bg-gradient-to-r from-purple-700 to-purple-400 text-black hover:bg-neutral-200 block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Sign In
-            </Link>
+            
+            <SignedOut>
+            
+              <SignInButton>
+              <div className="text-black hover:bg-neutral-200 block px-3 py-2 rounded-md text-base font-medium">
+              Sign in
+              </div>
+              </SignInButton>
+            </SignedOut>
+
+            <SignedIn>
+              <div className="text-white block px-1 py-2 rounded-md text-base font-medium">
+                <UserButton />
+                <p className='text-white'>Hello user</p>
+              </div>
+            </SignedIn>
           </div>
         </div>
       )}
