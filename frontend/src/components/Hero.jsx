@@ -1,167 +1,202 @@
-import React, { useContext } from 'react';
-
+import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { motion } from "framer-motion";
-import { SignedIn, SignedOut,SignInButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignInButton } from '@clerk/clerk-react';
 
 function Hero() {
-
- 
-
-  const parentVariants = {
-    hidden: {
-      opacity: 0,
-    },
+  // Enhanced animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        duration:2
+        staggerChildren: 0.4,
+        duration: 0.6
       },
     },
   };
 
-  const childVariants = {
-    hidden: {
-      opacity: 0,
-      y:0
-    },
+  const titleVariants = {
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      duration:2
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        duration: 0.8
+      }
     },
   };
 
+  const subtitleVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        delay: 0.2,
+        duration: 0.8
+      }
+    },
+  };
+
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        delay: 0.4,
+        duration: 0.5
+      }
+    },
+    hover: {
+      scale: 1.05,
+      transition: {
+        duration: 0.2
+      }
+    },
+    tap: {
+      scale: 0.95,
+      transition: {
+        duration: 0.1
+      }
+    }
+  };
+
+  const highlightVariants = {
+    initial: { width: 0 },
+    animate: { 
+      width: "100%",
+      transition: { duration: 1, delay: 0.8 }
+    }
+  };
+
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'white',
-        textAlign: 'center',
-        padding: '20px',
-        background: 'linear-gradient(to bottom,#000 1%,#4521A1 65%,#A46EDB 90%)',
-      }}
-    >
+    <div className="min-h-screen bg-[#121212] flex justify-center items-center px-4 sm:px-6 lg:px-8 overflow-hidden">
       <motion.div
-        variants={parentVariants}
+        variants={containerVariants}
         initial="hidden"
         animate="visible"
-        style={{
-          maxWidth: '900px',
-          width: '100%',
-          padding: '10px',
-        }}
+        className="max-w-4xl w-full text-center"
       >
-        <motion.h1
-          variants={childVariants}
-          className="text-[72px] font-sans font-semibold"
+        <motion.h1 
+          variants={titleVariants}
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-none mb-6"
         >
-          Perfect Email in Seconds
+          Craft Perfect
+          <div className="relative inline-block mx-2">
+            <span className="relative z-10">Cold Mails</span>
+            <motion.div 
+              className="absolute bottom-2 left-0 h-3 bg-gradient-to-r from-purple-700 to-purple-400 opacity-40 z-0"
+              variants={highlightVariants}
+              initial="initial"
+              animate="animate"
+            />
+          </div>
+          <br className="hidden sm:block" />
+          in Seconds
         </motion.h1>
+
         <motion.p
-          variants={childVariants}
-          style={{
-            fontSize: '1.2rem',
-            marginTop: '20px',
-            color: '#ccc',
-            lineHeight: '1.6',
-            textAlign: 'center',
-          }}
+          variants={subtitleVariants}
+          className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-8"
         >
-          Our platform helps you craft professional emails effortlessly. Save
-          time and boost productivity with our easy-to-use tools. With the
-          power of AI, easily craft HR-friendly emails in seconds.
+          Generate professional, personalized cold emails that get responses.
+          No more writer's block, just results.
         </motion.p>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '20px',
-            marginTop: '30px',
-          }}
+
+        <motion.div
+          className="flex flex-col sm:flex-row justify-center gap-4 mt-8"
+          variants={subtitleVariants}
         >
-          <motion.div variants={childVariants}>
-           <SignedIn>
+          <SignedIn>
             <Link to="/home">
-              <button
-                style={{
-                  padding: '10px 20px',
-                  fontSize: '1rem',
-                  color: '#fff',
-                  backgroundColor: 'black',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.3s',
-                }}
-                onMouseOver={(e) =>
-                  (e.target.style.backgroundColor = '#121212')
-                }
-                onMouseOut={(e) =>
-                  (e.target.style.backgroundColor = 'black')
-                }
+              <motion.button
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+                className="px-8 py-4 bg-gradient-to-r from-purple-700 to-purple-400 text-white font-semibold rounded-full text-lg transition-all shadow-lg hover:shadow-xl"
               >
                 Get Started
-              </button>
-              </Link>
-              </SignedIn>
-           <SignedOut>
-            <SignInButton>
-              <button
-                style={{
-                  padding: '10px 20px',
-                  fontSize: '1rem',
-                  color: '#fff',
-                  backgroundColor: 'black',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.3s',
-                }}
-                onMouseOver={(e) =>
-                  (e.target.style.backgroundColor = '#121212')
-                }
-                onMouseOut={(e) =>
-                  (e.target.style.backgroundColor = 'black')
-                }
-              >
-                Get Started
-              </button>
-              </SignInButton>
-              </SignedOut>
-          
-          </motion.div>
-          <motion.div variants={childVariants}>
-            <Link to="/learn-more">
-              <button
-                style={{
-                  padding: '10px 20px',
-                  fontSize: '1rem',
-                  color: '#fff',
-                  backgroundColor: 'black',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.3s',
-                }}
-                onMouseOver={(e) =>
-                  (e.target.style.backgroundColor = '#121212')
-                }
-                onMouseOut={(e) =>
-                  (e.target.style.backgroundColor = 'black')
-                }
-              >
-                Learn More
-              </button>
+              </motion.button>
             </Link>
-          </motion.div>
-        </div>
+          </SignedIn>
+          
+          <SignedOut>
+            <SignInButton>
+              <motion.button
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+                className="px-8 py-4 bg-gradient-to-r from-purple-700 to-purple-400 text-white font-semibold rounded-full text-lg transition-all shadow-lg hover:shadow-xl"
+              >
+                Get Started
+              </motion.button>
+            </SignInButton>
+          </SignedOut>
+          
+          <Link to="/pricing">
+            <motion.button
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              className="px-8 py-4 bg-[#2A2A2A] text-white font-semibold rounded-full text-lg transition-all hover:bg-[#333333]"
+            >
+              View Pricing
+            </motion.button>
+          </Link>
+        </motion.div>
+
+        {/* Floating decoration elements */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: 0.1,
+            x: [0, 10, 0],
+            y: [0, 15, 0]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity,
+            repeatType: "reverse" 
+          }}
+          style={{
+            background: "radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(168,85,247,0) 70%)",
+            filter: "blur(40px)",
+            zIndex: 0
+          }}
+        />
+        
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: 0.05,
+            x: [0, -15, 0],
+            y: [0, 10, 0]
+          }}
+          transition={{ 
+            duration: 10, 
+            repeat: Infinity,
+            repeatType: "reverse",
+            delay: 0.5
+          }}
+          style={{
+            background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, rgba(168,85,247,0) 70%)",
+            filter: "blur(60px)",
+            zIndex: 0
+          }}
+        />
       </motion.div>
     </div>
   );

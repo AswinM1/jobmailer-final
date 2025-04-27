@@ -5,7 +5,7 @@ import './index.css'
 import { ClerkProvider } from '@clerk/clerk-react'
 import { BrowserRouter } from 'react-router-dom'
 
-// Import your Publishable Key
+
 const PUBLISHABLE_KEY ="pk_test_bWFqb3ItamF5LTY4LmNsZXJrLmFjY291bnRzLmRldiQ"
 
 if (!PUBLISHABLE_KEY) {

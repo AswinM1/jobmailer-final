@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import { SignedIn,SignInButton,SignedOut,UserButton } from '@clerk/clerk-react';
+import Pricing from './components/Pricing';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
             
               <Route path="/" element={<Hero/>} />
               <Route path="*" element={<p>page not found 404</p>} />
+              
+              <Route path="/pricing" element={<Pricing/>} />
               
             
             
