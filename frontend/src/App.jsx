@@ -18,7 +18,7 @@ function App() {
             
               <Route path="/" element={<Hero/>} />
               <Route path="*" element={<p>page not found 404</p>} />
-              
+             
               <Route path="/pricing" element={<Pricing/>} />
               
             

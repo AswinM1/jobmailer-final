@@ -1,54 +1,56 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import bg1 from '../assets/bg.svg';
-import { SignedOut, SignInButton, UserButton, SignedIn } from '@clerk/clerk-react';
+import { Link} from 'react-router-dom';
+import { SignedOut, SignInButton, UserButton, SignedIn, useUser } from '@clerk/clerk-react';
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useUser();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  
+
   return (
-    <nav className="bg-[#121212] text-white shadow-lg flex justify-center pt-6">
+    <nav className="bg-neutral-950 z-10 text-white shadow-lg flex justify-center border-dotted border-b-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="bg-[#1A1A1A] rounded-full shadow-lg mx-auto">
+        <div className="rounded-full shadow-lg mx-auto">
           <div className="flex items-center justify-between h-16 px-6">
-            
-      
+
+            {/* Desktop Navigation */}
             <div className="hidden md:flex md:justify-center md:flex-1">
               <div className="flex items-center space-x-8 justify-center">
                 <Link
                   to="/"
-                  className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition duration-150 ease-in-out"
+                  className="text-gray-300 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-transform duration-200 ease-in-out transform hover:scale-105"
                 >
                   Home
                 </Link>
                 <Link
                   to="/pricing"
-                  className="text-white hover:text-white px-3 py-2 text-sm font-medium transition duration-150 ease-in-out"
+                  className="text-white hover:text-white px-3 py-2 text-sm font-medium transition-transform duration-200 ease-in-out transform hover:scale-105"
                 >
                   Pricing
                 </Link>
-                
+
                 <SignedOut>
                   <SignInButton>
-                    <div className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium transition duration-150 ease-in-out hover:opacity-90">
+                    <div className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium transition-transform duration-200 ease-in-out transform hover:scale-105 hover:opacity-90">
                       Sign In
                     </div>
                   </SignInButton>
                 </SignedOut>
+
                 <SignedIn>
                   <div className="flex items-center space-x-2 px-3 py-2 text-sm font-medium">
-                    <p className="text-white">Hello, user</p>
                     <UserButton />
                   </div>
                 </SignedIn>
               </div>
             </div>
-            
-            {/* Mobile Menu Button - Positioned at the right */}
+
+            {/* Mobile Menu Button */}
             <div className="md:hidden flex flex-1 justify-end">
               <button
                 type="button"
@@ -95,22 +97,21 @@ function Navbar() {
             </div>
           </div>
         </div>
-        
+
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-2" id="mobile-menu">
             <div className="bg-[#1A1A1A] rounded-2xl px-4 py-3 space-y-2 shadow-lg">
               <Link
                 to="/"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-transform duration-200 ease-in-out transform hover:scale-105"
               >
                 Home
               </Link>
-              
-              
+
               <SignedOut>
                 <SignInButton>
-                  <div className="bg-gradient-to-r from-purple-700 to-purple-400 text-white px-4 py-2 rounded-full text-base font-medium hover:opacity-90">
+                  <div className="bg-gradient-to-r from-purple-700 to-purple-400 text-white px-4 py-2 rounded-full text-base font-medium transition-transform duration-200 ease-in-out transform hover:scale-105 hover:opacity-90">
                     Sign in
                   </div>
                 </SignInButton>
@@ -119,13 +120,17 @@ function Navbar() {
               <SignedIn>
                 <div className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium">
                   <UserButton />
-                  <p className="text-white">Welcome,Back</p>
+                  <p className="text-white">Welcome, Back</p>
                 </div>
               </SignedIn>
             </div>
           </div>
         )}
       </div>
+
+      {/* Try Now Button */}
+     
+    
     </nav>
   );
 }

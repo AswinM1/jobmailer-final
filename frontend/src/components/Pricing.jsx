@@ -21,7 +21,6 @@ const Pricing = () => {
         'Edit generated content'
       ],
       buttonText: 'Get Started',
-      buttonClass: 'bg-gray-600 hover:bg-gray-500',
       popular: false
     },
     {
@@ -37,7 +36,6 @@ const Pricing = () => {
         'Advanced editing tools'
       ],
       buttonText: 'Subscribe Now',
-      buttonClass: 'bg-gradient-to-r from-purple-700 to-purple-400 hover:opacity-90',
       popular: true
     },
     {
@@ -53,12 +51,10 @@ const Pricing = () => {
         'Dedicated support'
       ],
       buttonText: 'Contact Sales',
-      buttonClass: 'bg-gray-600 hover:bg-gray-500',
       popular: false
     }
   ];
 
-  // Calculate yearly discount percentage (for display)
   const calculateYearlyDiscount = (monthlyPrice, yearlyPrice) => {
     if (monthlyPrice === 0) return 0;
     const annualMonthlyRate = yearlyPrice / 12;
@@ -67,28 +63,28 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-gray-300 p-6 md:p-8">
+    <div className="min-h-screen bg-neutral-950 text-gray-300 p-6 md:p-8" >
+      <div className="absolute flex justify-end items-center pointer-events-none z-0">
+        <div className="w-[500px] h-[500px] bg-[radial-gradient(circle,_rgba(253,186,116,0.4)_0%,_transparent_70%)] rounded-full blur-3xl"></div>
+      </div>
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif italic text-white mb-4">
             Choose Your Plan
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Get access to our email generation tools with a plan that works for you
           </p>
-          
-          {/* Toggle billing period */}
           <div className="mt-8 flex items-center justify-center">
             <span className={`mr-3 ${billingPeriod === 'monthly' ? 'text-white' : 'text-gray-500'}`}>
               Monthly
             </span>
             <button
               onClick={toggleBillingPeriod}
-              className="relative inline-flex h-8 w-16 items-center rounded-full bg-[#2A2A2A] transition-colors focus:outline-none"
+              className="relative inline-flex h-8 w-16 items-center rounded-full transition-colors focus:outline-none"
             >
               <span
-                className={`inline-block h-6 w-6 transform rounded-full bg-purple-500 shadow-lg transition-transform ${
+                className={`inline-block h-6 w-6 transform rounded-full bg-orange-500 shadow-lg transition-transform ${
                   billingPeriod === 'yearly' ? 'translate-x-9' : 'translate-x-1'
                 }`}
               />
@@ -99,46 +95,38 @@ const Pricing = () => {
           </div>
         </div>
 
-        {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-8 mt-8">
           {plans.map((plan, index) => {
             const currentPrice = plan.price[billingPeriod];
             const discount = calculateYearlyDiscount(plan.price.monthly, plan.price.yearly);
-            
+
             return (
-              <div 
-                key={index} 
-                className={`bg-[#1A1A1A] rounded-2xl shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105 ${
-                  plan.popular ? 'border-2 border-purple-500 relative' : ''
+              <div
+                key={index}
+                className={`bg-gradient-to-b from-black to-neutral-950 bg-opacity-70 rounded-2xl shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105 ${
+                  plan.popular ? 'border-2 border-orange-500 shadow-orange-700/50 relative' : ''
                 }`}
               >
                 {plan.popular && (
                   <div className="absolute top-0 right-0">
-                    <div className="bg-gradient-to-r from-purple-700 to-purple-400 text-white text-xs px-3 py-1 rounded-bl-lg">
+                    <div className="bg-gradient-to-r from-orange-700 to-orange-500 text-white text-xs px-3 py-1 rounded-bl-lg">
                       Most Popular
                     </div>
                   </div>
                 )}
-                
+
                 <div className="p-6">
                   <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
                   <p className="text-gray-400 mb-6">{plan.description}</p>
-                  
+
                   <div className="mb-6">
-                    <span className="text-4xl font-bold text-white">
-                      ${currentPrice}
-                    </span>
-                    <span className="text-gray-400">
-                      /{billingPeriod === 'monthly' ? 'month' : 'year'}
-                    </span>
-                    
+                    <span className="text-4xl font-bold text-white">${currentPrice}</span>
+                    <span className="text-gray-400">/{billingPeriod === 'monthly' ? 'month' : 'year'}</span>
                     {billingPeriod === 'yearly' && discount > 0 && (
-                      <div className="text-green-400 text-sm mt-1">
-                        Save {discount}% vs monthly
-                      </div>
+                      <div className="text-green-400 text-sm mt-1">Save {discount}% vs monthly</div>
                     )}
                   </div>
-                  
+
                   <div className="border-t border-gray-700 my-6 pt-6">
                     <ul className="space-y-3">
                       {plan.features.map((feature, fIndex) => (
@@ -152,88 +140,82 @@ const Pricing = () => {
                     </ul>
                   </div>
                 </div>
-                
+
                 <div className="p-6 bg-[#212121]">
                   <SignedIn>
                     <button
-                      className={`w-full py-3 px-4 rounded-full text-white font-semibold transition duration-300 ${plan.buttonClass}`}
+                      className="w-full py-3 px-4 rounded-full text-white font-semibold transition duration-300 bg-gradient-to-r from-orange-700 to-orange-500 hover:opacity-90"
                     >
                       {plan.buttonText}
                     </button>
                   </SignedIn>
                   <SignedOut>
-                    {plan.name === 'Free' ? (
-                      <SignInButton>
-                        <button
-                          className={`w-full py-3 px-4 rounded-full text-white font-semibold transition duration-300 ${plan.buttonClass}`}
-                        >
-                          {plan.buttonText}
-                        </button>
-                      </SignInButton>
-                    ) : (
-                      <SignInButton>
-                        <button
-                          className={`w-full py-3 px-4 rounded-full text-white font-semibold transition duration-300 ${plan.buttonClass}`}
-                        >
-                          Sign In to Subscribe
-                        </button>
-                      </SignInButton>
-                    )}
+                    <SignInButton>
+                      <button
+                        className="w-full py-3 px-4 rounded-full text-white font-semibold transition duration-300 bg-gradient-to-r from-orange-700 to-orange-500 hover:opacity-90"
+                      >
+                        {plan.name === 'Free' ? plan.buttonText : 'Sign In to Subscribe'}
+                      </button>
+                    </SignInButton>
                   </SignedOut>
                 </div>
               </div>
             );
           })}
         </div>
-        
+
         {/* FAQ Section */}
         <div className="mt-24 mb-12">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">Frequently Asked Questions</h2>
           
+          <h2 className="text-3xl font-serif italic text-white text-center mb-12">Frequently Asked Questions</h2>
+          
+
           <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                question: "How does the email generation work?",
-                answer: "Our service uses AI to create professional emails based on your input. Simply provide the details of what you need, and we'll generate a well-crafted email for you to use or customize."
-              },
-              {
-                question: "Can I change plans later?",
-                answer: "Yes, you can upgrade or downgrade your plan at any time. Changes to your subscription will be applied at the beginning of your next billing cycle."
-              },
-              {
-                question: "Is there a limit to how many emails I can generate?",
-                answer: "Free users can generate up to 3 emails per day. Pro and Enterprise subscribers enjoy unlimited generations."
-              },
-              {
-                question: "How do I cancel my subscription?",
-                answer: "You can cancel your subscription at any time from your account settings. Your access will continue until the end of your current billing period."
-              }
-            ].map((faq, index) => (
-              <div key={index} className="bg-[#1A1A1A] rounded-xl p-6">
-                <h3 className="text-xl font-semibold text-white mb-3">{faq.question}</h3>
+            {[{
+              question: "How does the email generation work?",
+              answer: "Our service uses AI to create professional emails based on your input. Simply provide the details of what you need, and we'll generate a well-crafted email for you to use or customize."
+            },
+            {
+              question: "Can I change plans later?",
+              answer: "Yes, you can upgrade or downgrade your plan at any time. Changes to your subscription will be applied at the beginning of your next billing cycle."
+            },
+            {
+              question: "Is there a limit to how many emails I can generate?",
+              answer: "Free users can generate up to 3 emails per day. Pro and Enterprise subscribers enjoy unlimited generations."
+            },
+            {
+              question: "How do I cancel my subscription?",
+              answer: "You can cancel your subscription at any time from your account settings. Your access will continue until the end of your current billing period."
+            }].map((faq, index) => (
+              <div key={index} className="bg-gradient-to-b from-orange-600   rounded-xl p-6">
+                <h3 className="text-xl font-serif italic text-white mb-3">{faq.question}</h3>
                 <p className="text-gray-400">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
-        
+
         {/* CTA Section */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-purple-900/40 to-purple-600/40 rounded-2xl p-8 md:p-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Ready to get started?</h2>
+            <div className="absolute  flex justify-center items-center pointer-events-none z-0">
+        <div className="w-[500px] h-[500px] bg-[radial-gradient(circle,_rgba(253,186,116,0.4)_0%,_transparent_70%)] rounded-full blur-3xl"></div>
+      </div>
+          <div className="bg-neutral-950 rounded-2xl p-8 md:p-12">
+
+            <h2 className="text-3xl font-serif italic text-white mb-4">Ready to get started?</h2>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Join thousands of professionals who save time with our email generation tools.
             </p>
             <SignedOut>
               <SignInButton>
-                <button className="bg-gradient-to-r from-purple-700 to-purple-400 text-white px-8 py-3 rounded-full text-lg font-semibold transition duration-300 hover:opacity-90">
+                <button className="bg-gradient-to-t from-orange-700 to-orange-500 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300 hover:opacity-90">
                   Sign Up Now
                 </button>
               </SignInButton>
             </SignedOut>
             <SignedIn>
               <Link to="/">
-                <button className="bg-gradient-to-r from-purple-700 to-purple-400 text-white px-8 py-3 rounded-full text-lg font-semibold transition duration-300 hover:opacity-90">
+                <button className="bg-gradient-to-t from-orange-700 to-orange-500 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300 hover:opacity-90">
                   Try It Now
                 </button>
               </Link>
