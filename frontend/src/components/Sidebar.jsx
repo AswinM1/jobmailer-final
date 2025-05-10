@@ -1,39 +1,54 @@
 import { useUser, SignOutButton } from '@clerk/clerk-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Menu, X } from 'lucide-react'; // hamburger & close icons
 
 function Sidebar() {
   const { user } = useUser();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <div className='absolute text-white mt-20 left-0 top-0   z-20 flex flex-col h-[100vh] w-[200px] mr-6 bg-neutral-950  border-neutral-500'>
-      <div className='mx-8 '>
-       
-        <div className='flex flex-row gap-2 mb-8 items-center'>
-          <img src={user.imageUrl} alt="User" className='h-6 w-6 rounded-full' />
-          <div className='text-sm font-light'>{user.firstName}</div>
-        </div>
+    <>
+      {/* Mobile Toggle Button */}
+      <button
+        className="sm:hidden fixed top-4 left-4 z-30 p-2 text-white bg-neutral-900 rounded-md"
+        onClick={toggleSidebar}
+      >
+        {isOpen ? <X size={20} /> : <Menu size={20} />}
+      </button>
 
-<Link to={"/"}>
-        <div className='text-sm font-light hover:cursor-pointer mb-4 hover:scale-105 transition-transform duration-200'>
-          Home
-        </div>
-        </Link>
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 z-20 h-full w-[200px] bg-neutral-950 border-r border-neutral-700 text-white transform ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        } transition-transform duration-300 sm:translate-x-0 sm:static sm:block`}
+      >
+        <div className="p-6 flex flex-col justify-between h-full">
+          <div>
+            <div className="flex items-center gap-2 mb-8">
+              <img src={user.imageUrl} alt="User" className="h-6 w-6 rounded-full" />
+              <div className="text-sm font-light">{user.firstName}</div>
+            </div>
 
-<Link to={"/dashboard"}>
-        <div className='text-sm font-light hover:cursor-pointer hover:scale-105 transition-transform duration-200'>
-          Dashboard
+            <Link to="/" onClick={() => setIsOpen(false)}>
+              <div className="text-sm font-light mb-4 hover:scale-105 transition-transform">
+                Home
+              </div>
+            </Link>
+
+            <Link to="/Dashboard" onClick={() => setIsOpen(false)}>
+              <div className="text-sm font-light hover:scale-105 transition-transform">
+                Dashboard
+              </div>
+            </Link>
+          </div>
+
+          <SignOutButton className="mt-20 bg-[#1e1e1e] px-8 py-2 rounded-lg text-sm font-semibold hover:scale-105 transition-transform" />
         </div>
-        </Link>
-       
-       
       </div>
-       <div className='mt-[100px]'>
-         <SignOutButton className="mb-7 bg-[#1e1e1e]  mx-5 px-14 py-2 rounded-lg text-sm font-semibold hover:scale-105 transition-transform duration-200">
-          Logout
-        </SignOutButton>
-        </div>
-    </div>
+    </>
   );
 }
 

@@ -3,28 +3,38 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom'; // Correct impo
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import { SignedIn,SignInButton,SignedOut,UserButton } from '@clerk/clerk-react';
+import { useUser } from '@clerk/clerk-react';
 import Pricing from './components/Pricing';
+import Login from './components/Login';
+import Dashboard from './Dashboard';
 
 function App() {
+  const { isSignedIn } = useUser();
+
   return (
     <div>
-     
-      
-            <Navbar />
-            <Routes>
-              <Route path="/home" element={<SignedIn><Home /></SignedIn>} />
-             
-            
-              <Route path="/" element={<Hero/>} />
-              <Route path="*" element={<p>page not found 404</p>} />
-             
-              <Route path="/pricing" element={<Pricing/>} />
-              
-            
-            
-            </Routes>
+      <Navbar />
+      <Routes>
         
+        <Route path="/" element={<Hero />} />
+        <Route path="/pricing" element={<Pricing />} />
+        
+      
+        {isSignedIn ? (
+          <>
+            <Route path="/home" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </>
+        ) : (
+          <Route path="/home" element={<Login />} />
+        )}
+
+      
+        <Route path="/login" element={<Login />} />
+
+        
+        <Route path="*" element={<p className='text-10xl text-white'>Page Not Found - 404</p>} />
+      </Routes>
     </div>
   );
 }
