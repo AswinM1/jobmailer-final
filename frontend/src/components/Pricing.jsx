@@ -64,15 +64,13 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen bg-neutral-950 text-gray-300 p-6 md:p-8" >
-      <div className="absolute flex justify-end items-center pointer-events-none z-0">
-        <div className="w-[500px] h-[500px] bg-[radial-gradient(circle,_rgba(253,186,116,0.4)_0%,_transparent_70%)] rounded-full blur-3xl"></div>
-      </div>
-      <div className="max-w-6xl mx-auto">
+      
+      <div className="max-w-6xl mx-auto"> 
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif italic text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-sans tracking-tighter font-medium text-white mb-4">
             Choose Your Plan
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-neutral-500 max-w-2xl mx-auto">
             Get access to our email generation tools with a plan that works for you
           </p>
           <div className="mt-8 flex items-center justify-center">
@@ -167,10 +165,10 @@ const Pricing = () => {
         {/* FAQ Section */}
         <div className="mt-24 mb-12">
           
-          <h2 className="text-3xl font-serif italic text-white text-center mb-12">Frequently Asked Questions</h2>
+          <h1 className="text-4xl font-sans tracking-tighter font-mediums text-white text-center mb-12">Frequently Asked Questions</h1>
           
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-2 md:w-[800px] row-auto">
             {[{
               question: "How does the email generation work?",
               answer: "Our service uses AI to create professional emails based on your input. Simply provide the details of what you need, and we'll generate a well-crafted email for you to use or customize."
@@ -187,8 +185,8 @@ const Pricing = () => {
               question: "How do I cancel my subscription?",
               answer: "You can cancel your subscription at any time from your account settings. Your access will continue until the end of your current billing period."
             }].map((faq, index) => (
-              <div key={index} className="bg-gradient-to-b from-orange-600   rounded-xl p-6">
-                <h3 className="text-xl font-serif italic text-white mb-3">{faq.question}</h3>
+              <div key={index} className=" rounded-xl p-6">
+                <h3 className="text-xl font-sans text-white mb-3">{faq.question}</h3>
                 <p className="text-gray-400">{faq.answer}</p>
               </div>
             ))}
@@ -198,11 +196,11 @@ const Pricing = () => {
         {/* CTA Section */}
         <div className="mt-16 text-center">
             <div className="absolute  flex justify-center items-center pointer-events-none z-0">
-        <div className="w-[500px] h-[500px] bg-[radial-gradient(circle,_rgba(253,186,116,0.4)_0%,_transparent_70%)] rounded-full blur-3xl"></div>
+    
       </div>
-          <div className="bg-neutral-950 rounded-2xl p-8 md:p-12">
+          <div className=" rounded-2xl p-8 md:p-12 bg-orange-900" >
 
-            <h2 className="text-3xl font-serif italic text-white mb-4">Ready to get started?</h2>
+            <h2 className="text-3xl font-sans tracking-tighter font-bold text-white mb-4 ">Ready to get started?</h2>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Join thousands of professionals who save time with our email generation tools.
             </p>

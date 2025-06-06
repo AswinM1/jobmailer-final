@@ -13,7 +13,7 @@ function Sidebar() {
     <>
       {/* Mobile Toggle Button */}
       <button
-        className="sm:hidden fixed top-4 left-4 z-30 p-2 text-white bg-neutral-900 rounded-md"
+        className="sm:hidden fixed top-4 left-4 z-30 p-2 text-white  bg-neutral-900 rounded-md"
         onClick={toggleSidebar}
       >
         {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -21,7 +21,7 @@ function Sidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 z-20 h-full w-[200px] bg-neutral-950 border-r border-neutral-700 text-white transform ${
+        className={`fixed top-0 left-0 z-20 h-screen w-[200px] bg-neutral-950 border-r border-neutral-900 text-white transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-transform duration-300 sm:translate-x-0 sm:static sm:block`}
       >

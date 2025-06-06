@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from './Sidebar';
+import { ArrowRightIcon } from 'lucide-react';
 
 const Home = () => {
   const [prompt, setPrompt] = useState('');
@@ -126,10 +127,8 @@ const Home = () => {
 
   return (
     <div>
-     <div className="bg-neutral-950 text-gray-300 p-4 md:p-8 min-h-screen">
-  <div className="absolute inset-0 flex justify-end pointer-events-none z-0">
-    <div className="w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[radial-gradient(circle,_rgba(253,186,116,0.4)_0%,_transparent_70%)] rounded-full blur-3xl"></div>
-  </div>
+     <div className="bg-neutral-950 text-gray-300 p-4 md:p-8 min-h-screen items-center justify-center mx-auto flex">
+ 
 
   <div className="relative max-w-4xl mx-auto px-2 sm:px-4 md:px-6 z-10">
     <div className="w-full flex justify-center mt-6">
@@ -138,10 +137,10 @@ const Home = () => {
       </p>
     </div>
 
-    <div className={`rounded-lg p-4 md:p-6 ${hasOutput ? 'z-10 mb-2' : 'mb-8'}`}>
+    <div className={`rounded-lg p-4 md:p-6  flex flex-col   ${hasOutput ? 'z-10 mb-2' : 'mb-8'}`}>
       {!hasOutput && (
-        <h1 className="text-3xl sm:text-4xl md:text-5xl tracking-tight font-sans text-center mb-8 font-extralight text-white">
-          What do you want to <span className='italic font-serif'>craft</span>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl tracking-tight font-sans text-center mb-8 font-bold text-white">
+          What do you want to <span className='italic font-sans'>craft ?</span>
         </h1>
       )}
 
@@ -194,9 +193,9 @@ const Home = () => {
 
         <button
   type="submit"
-  className="w-8 h-8 rounded-full absolute bottom-4 right-4 bg-orange-500 hover:bg-orange-700 text-white text-sm shadow z-30"
+  className="w-8 h-8  items-center justify-center mx-auto rounded-full absolute bottom-4 right-4 bg-orange-500 hover:bg-orange-700 text-white text-sm shadow z-30 flex"
   title="Generate"
-/>
+><ArrowRightIcon></ArrowRightIcon></button>
 
           <select
             value={emailType}

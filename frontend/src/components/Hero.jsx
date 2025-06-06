@@ -88,14 +88,14 @@ function Hero() {
 
           <motion.h1
             variants={titleVariants}
-            className="text-[40px] sm:text-3xl md:text-10xl lg:text-7xl font-sans font-extralight italic text-white tracking-tighter mb-6"
+            className="text-[40px] sm:text-3xl md:text-10xl lg:text-7xl font-sans  text-white tracking-tighter  font-bold mb-6"
           >
-            Where <span className='font-serif font-extralight'>Opportunity</span> Meets the Right Inbox.
+            Where Opportunity Meets the Right Inbox.
           </motion.h1>
 
-          <motion.p
+          <motion.p 
             variants={subtitleVariants}
-            className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-8 font-thin"
+            className="text-lg sm:text-xl text-neutral-500 max-w-2xl mx-auto mb-8 font-thin tracking-tighter"
           >
             Generate professional, personalized cold emails that get responses.
             No more writer's block, just results.
