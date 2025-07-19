@@ -12,8 +12,8 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-neutral-950 z-10 text-white shadow-lg flex justify-center border-dotted border-b-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <nav className="bg-[	#e2e1df] z-10 text-white  flex justify-center border-dotted border-b-white">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 w-full bg-white rounded-md mt-3">
         <div className="flex items-center justify-between h-16 px-6">
 
           {/* Desktop Navigation */}
@@ -21,26 +21,26 @@ function Navbar() {
             <div className="flex items-center space-x-8 justify-center">
               <Link
                 to="/"
-                className="text-gray-300 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-transform duration-200 ease-in-out transform hover:scale-105"
+                className="text-gray-600 font-sans font-medium hover:text-orange-600 px-3 py-2 text-md transition-transform duration-200 ease-in-out transform hover:scale-105"
               >
                 Home
               </Link>
               <Link
                 to="/pricing"
-                className="text-white hover:text-white px-3 py-2 text-sm font-medium transition-transform duration-200 ease-in-out transform hover:scale-105"
+                className="text-gray-600 hover:text-white px-3 py-2 text-md font-medium transition-transform duration-200 ease-in-out transform hover:scale-105"
               >
                 Pricing
               </Link>
 
               {!isSignedIn ? (
                 <Link to="/login">
-                  <div className="text-white bg-orange-600 px-4 py-2 rounded-full text-base font-medium hover:cursor-pointer">
+                  <div className="text-white bg-gradient-to-t from-black to-neutral-800 px-4 py-2 rounded-full  font-medium tracking-tighter hover:cursor-pointer">
                     Sign in
                   </div>
                 </Link>
               ) : (
                 <Link to="/dashboard">
-                  <div className="flex items-center space-x-2 px-3 py-2 rounded-md  gap-2 text-base font-medium">
+                  <div className="flex items-center space-x-2 px-3 py-2 rounded-md  gap-2 text-base font-medium text-neutral-800">
                     Dashboard
                     <UserButton></UserButton>
                  

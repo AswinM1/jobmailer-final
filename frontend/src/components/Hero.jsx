@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import Feature from './Features';
 import Pricing from './Pricing';
+import img1 from '../../src/bg.png'
 
 function Hero() {
   const containerVariants = {
@@ -70,10 +71,12 @@ function Hero() {
 
   return (
     <div>
-    <div class="relative h-full w-full bg-slate-950"><div class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div></div>
-      <div className="min-h-screen bg-neutral-950 flex justify-center items-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+   
+      <div className="min-h-screen flex justify-center items-center px-4 sm:px-6 lg:px-8 overflow-hidden">
 
- <div className="absolute inset-0 z-0 pointer-events-none bg-[linear-gradient(to_right,_rgba(255,255,255,0.03)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(255,255,255,0.03)_1px,_transparent_1px)] bg-[size:40px_40px]" />
+ <div
+ 
+ className="absolute inset-0 z-0 pointer-events-none bg-[linear-gradient(to_right,_rgba(255,255,255,0.03)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(255,255,255,0.03)_1px,_transparent_1px)] bg-[size:40px_40px]" />
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -81,21 +84,22 @@ function Hero() {
           className="relative z-10 max-w-4xl w-full text-center"
         >
           <div className="w-full flex justify-center mb-4">
-            <p className="bg-orange-500 shadow-lg shadow-orange-600/50 hover:scale-110 transition-all duration-200 w-fit px-4 py-2 font-sans font-medium rounded-full text-white text-sm">
-              Welcome to Jobmailer
+            <p className="bg-orange-300 shadow-lg text-black shadow-black/50 hover:scale-110 transition-all duration-200 w-fit px-4 py-2 font-sans font-medium rounded-full border border-black text-sm">
+              The Email companion you needed
             </p>
           </div>
 
           <motion.h1
             variants={titleVariants}
-            className="text-[40px] sm:text-3xl md:text-10xl lg:text-7xl font-sans  text-white tracking-tighter  font-bold mb-6"
+            className="text-[40px] sm:text-3xl md:text-4xl lg:text-7xl font-sans  text-black tracking-tighter  font-semibold mb-6"
           >
-            Where Opportunity Meets the Right Inbox.
+            Generate professional emails that get responses.
+          
           </motion.h1>
 
           <motion.p 
             variants={subtitleVariants}
-            className="text-lg sm:text-xl text-neutral-500 max-w-2xl mx-auto mb-8 font-thin tracking-tighter"
+            className="text-lg sm:text-xl text-neutral-700 max-w-2xl mx-auto mb-8 font-thin tracking-tighter"
           >
             Generate professional, personalized cold emails that get responses.
             No more writer's block, just results.
@@ -108,7 +112,7 @@ function Hero() {
             <Link to="/home">
               <motion.button
                 variants={buttonVariants}
-                className="z-30 px-8 py-2 bg-gradient-to-b from-orange-700 to-orange-500 text-white font-semibold rounded-lg shadow-lg text-lg hover:scale-105"
+                className="z-30 px-8 py-2 bg-gradient-to-t shadow-lg from-black to-neutral-800 text-white font-medium tracking-tight rounded-lg text-lg hover:scale-105"
               >
                 Get Started
               </motion.button>
@@ -117,7 +121,7 @@ function Hero() {
             <Link to="/pricing">
               <button
               
-                className="px-8 py-2 bg-gradient-to-b from-orange-700 to-orange-500 text-white font-semibold rounded-lg text-lg transition-all"
+                className="px-8 py-2 bg-gradient-to-b bg-transparent border-black border text-black font-medium tracking-tight rounded-lg text-lg transition-all"
               >
                 View Pricing
               </button>
