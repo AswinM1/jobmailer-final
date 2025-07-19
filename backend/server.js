@@ -11,6 +11,16 @@ dotenv.config();
 const app = express();
 
 // MongoDB Connection
+const sender=nodemailer.createTransport({
+   host: "smtp.ethereal.email",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: "jayden.lang75@ethereal.email",
+    pass: "xEEMvyDfJcm6s7mZt1",
+  },
+}
+)
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -107,19 +117,24 @@ I have attached my resume and portfolio for your consideration. Please feel free
 Thank you for considering my application.
 
 Sincerely,
-[Your Name]`,
+[Your Name]
+
+do not add anything extra just only give the enail as output filled with user name and other details they provide`
+
+,
+
   
-  Followup: `Create a professional follow-up email for a job or internship application based on the user's input. Include details about the position applied for, when they applied, and reference any previous interactions if mentioned. The email should be concise, polite, and express continued interest in the position. Use appropriate formality and include a call to action. If the user asks for edits, adjust the tone and content accordingly. Ask for necessary information like company name, position applied for, and date of application if not provided.`,
+  Followup: `Create a professional follow-up email for a job or internship application based on the user's input. Include details about the position applied for, when they applied, and reference any previous interactions if mentioned. The email should be concise, polite, and express continued interest in the position. Use appropriate formality and include a call to action. If the user asks for edits, adjust the tone and content accordingly. Ask for necessary information like company name, position applied for, and date of application if not provided. do not add anything extra just only give the enail as output filled with user name and other details they provide`,
   
-  JobApplication: `Generate a formal job application email based on the user's provided information. Include details about the position being applied for, their qualifications, experience, and why they're interested in the role and company. Structure with a clear subject line, professional greeting, introduction stating the position, body highlighting relevant experience and skills, closing paragraph expressing interest in an interview, and professional signature. If the user asks for edits, tailor the email according to their specifications. Ask for necessary information like position title, company name, qualifications, and how they found the job listing if not provided.`,
+  JobApplication: `Generate a formal job application email based on the user's provided information. Include details about the position being applied for, their qualifications, experience, and why they're interested in the role and company. Structure with a clear subject line, professional greeting, introduction stating the position, body highlighting relevant experience and skills, closing paragraph expressing interest in an interview, and professional signature. If the user asks for edits, tailor the email according to their specifications. Ask for necessary information like position title, company name, qualifications, and how they found the job listing if not provided. `,
   
-  Resignation: `Create a professional resignation letter based on the user's input. Include their current position, company name, intended last day of work (typically 2 weeks notice), and reason for leaving if provided. The tone should be respectful, appreciative of the opportunities received, and offer assistance during the transition period. Structure with date, recipient details, formal greeting, resignation statement, notice period, transition details, expression of gratitude, and formal closing. If the user asks for edits, modify according to their needs. Ask for necessary information like position, company name, and intended last day if not provided.`,
+  Resignation: `Create a professional resignation letter based on the user's input. Include their current position, company name, intended last day of work (typically 2 weeks notice), and reason for leaving if provided. The tone should be respectful, appreciative of the opportunities received, and offer assistance during the transition period. Structure with date, recipient details, formal greeting, resignation statement, notice period, transition details, expression of gratitude, and formal closing. If the user asks for edits, modify according to their needs. Ask for necessary information like position, company name, and intended last day if not provided. do not add anything extra just only give the enail as output filled with user name and other details they provide`,
   
-  ThankYou: `Generate a sincere thank-you email based on the user's input. This could be following a job interview, after receiving help, or to express appreciation for an opportunity. The email should be warm, specific about what they're thankful for, and personalized to the recipient. Keep it concise but genuine. If the user asks for edits, adjust according to their specifications. Ask for necessary information like the recipient's name, what they're thanking them for, and any specific details they want to mention if not provided.`,
+  ThankYou: `Generate a sincere thank-you email based on the user's input. This could be following a job interview, after receiving help, or to express appreciation for an opportunity. The email should be warm, specific about what they're thankful for, and personalized to the recipient. Keep it concise but genuine. If the user asks for edits, adjust according to their specifications. Ask for necessary information like the recipient's name, what they're thanking them for, and any specific details they want to mention if not provided do not add anything extra just only give the enail as output filled with user name and other details they provide.`,
   
-  Introduction: `Create a professional introduction email based on the user's input. This could be for networking, introducing themselves to a new team, or establishing a business connection. Include who they are, their background, the purpose of the connection, and a clear next step if applicable. The tone should be professional yet approachable, with appropriate level of detail based on the context. If the user asks for edits, modify according to their specifications. Ask for necessary information like their role, company, the recipient's details, and purpose of the introduction if not provided.`,
+  Introduction: `Create a professional introduction email based on the user's input. This could be for networking, introducing themselves to a new team, or establishing a business connection. Include who they are, their background, the purpose of the connection, and a clear next step if applicable. The tone should be professional yet approachable, with appropriate level of detail based on the context. If the user asks for edits, modify according to their specifications. Ask for necessary information like their role, company, the recipient's details, and purpose of the introduction if not provided. do not add anything extra just only give the enail as output filled with user name and other details they provide`,
   
-  RequestMeeting: `Generate a professional meeting request email based on the user's input. Include the purpose of the meeting, suggested times/dates, estimated duration, location (virtual or physical), and any preparation needed from participants. The tone should be professional and respectful of the recipient's time. Include a clear subject line and call to action. If the user asks for edits, adjust according to their needs. Ask for necessary information like meeting purpose, preferred times, and participants if not provided.`
+  RequestMeeting: `Generate a professional meeting request email based on the user's input. Include the purpose of the meeting, suggested times/dates, estimated duration, location (virtual or physical), and any preparation needed from participants. The tone should be professional and respectful of the recipient's time. Include a clear subject line and call to action. If the user asks for edits, adjust according to their needs. Ask for necessary information like meeting purpose, preferred times, and participants if not provided. do not add anything extra just only give the enail as output filled with user name and other details they provide`
 };
 
 
@@ -128,6 +143,29 @@ const groq = new Groq({
   apiKey: process.env.KEY,
 });
 
+
+app.post("/sendmail", async (req, res) => {
+  const { email, content } = req.body;
+
+  if (!email || !content) {
+    return res.status(400).json({ message: "Email and content are required" });
+  }
+
+  try {
+    const info = await sender.sendMail({
+      from: 'testmail',
+      to: email,
+      subject: "Internship mail",
+      text: content,
+    });
+
+    console.log("Message sent: %s", info.messageId);
+    res.sendStatus(200); // OK
+  } catch (error) {
+    console.error("Error sending mail:", error);
+    res.status(500).json({ message: "Failed to send email" });
+  }
+});
 
 app.post("/main", async (req, res) => {
   try {
